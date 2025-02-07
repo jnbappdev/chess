@@ -11,11 +11,12 @@ import java.util.Objects;
  * signature of the existing methods.
  */
 public class ChessPiece {
-
-    public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
-    }
     private ChessGame.TeamColor teamColor;
     private ChessPiece.PieceType pieceType;
+    public ChessPiece(ChessGame.TeamColor teamColor, ChessPiece.PieceType pieceType) {
+        this.teamColor = teamColor;
+        this.pieceType = pieceType;
+    }
 
     @Override
     public boolean equals(Object o) {
