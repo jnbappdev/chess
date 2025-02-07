@@ -74,6 +74,8 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+//        this says we now havea  collection that we can store and it stores chessmoves, called possible moves
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
         if(this.pieceType == PieceType.ROOK){
 //  want to make sure that the row and column are each not greater than 8
 //  location I move to is not filled by same color piece OR should I just test for any piece at all
@@ -87,8 +89,22 @@ public class ChessPiece {
         } else if(this.pieceType == PieceType.KING){
             ChessPosition newKingPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
         } else if(this.pieceType == PieceType.PAWN) {
-            while((myPosition.getRow() >= 1 && myPosition.getRow() < 8) && (myPosition.getColumn() <= 8 && myPosition.getColumn() >= 1)){
-                ChessPosition frontMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn());
+            if((myPosition.getRow() >= 1 && myPosition.getRow() < 8) && (myPosition.getColumn() <= 8 && myPosition.getColumn() >= 1)) {
+//                how do I check if the space is empty or filled with another piece (the same team)
+//                1. is the piece staying on the board
+//                2. is the piece moving to an empty space
+//                3. is the piece going to capture another piece
+                ChessPosition frontMove = new ChessPosition(myPosition.getRow() + 1, myPosition.getColumn());
+                ChessPiece frontpiece = board.getPiece(frontMove);
+                if (frontpiece == null){ // will return null if empty
+                    possibleMoves.add(new ChessMove(myPosition, frontMove, null));
+//                    still need to check if it hits the 8th rank for white, or 1st for black if it can promote you put options
+            }
+                if (frontpiece.teamColor != board.getPiece(myPosition).teamColor){
+//                    set the old space to equal the new piece
+//                    board[[1][3]] = null;
+
+                }
                 ChessPosition diagonalRightMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()-1);
                 ChessPosition diagonalLeftMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
             }
