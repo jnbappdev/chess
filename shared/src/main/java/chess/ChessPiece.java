@@ -74,6 +74,26 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+        if(this.pieceType == PieceType.ROOK){
+//  want to make sure that the row and column are each not greater than 8
+//  location I move to is not filled by same color piece OR should I just test for any piece at all
+            ChessPosition newRookPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+        } else if(this.pieceType == PieceType.KNIGHT){
+            ChessPosition newKingPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+        } else if(this.pieceType == PieceType.BISHOP){
+            ChessPosition newKingPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+        } else if(this.pieceType == PieceType.QUEEN){
+            ChessPosition newKingPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+        } else if(this.pieceType == PieceType.KING){
+            ChessPosition newKingPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+        } else if(this.pieceType == PieceType.PAWN) {
+            while((myPosition.getRow() >= 1 && myPosition.getRow() < 8) && (myPosition.getColumn() <= 8 && myPosition.getColumn() >= 1)){
+                ChessPosition frontMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn());
+                ChessPosition diagonalRightMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()-1);
+                ChessPosition diagonalLeftMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+            }
+
+        }
         return new ArrayList<ChessMove>(
                 // all possible move positions of each chess piece on the board
         );
