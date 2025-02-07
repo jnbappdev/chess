@@ -10,7 +10,7 @@ import java.util.Objects;
  * signature of the existing methods.
  */
 public class ChessBoard {
-    private ChessPiece[][] squares = new ChessPiece[8][8];
+    private ChessPiece[][] grid = new ChessPiece[8][8];
     public ChessBoard() {
         
     }
@@ -21,7 +21,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece){
-        squares[position.getRow()][position.getColumn()] = piece;}
+        grid[position.getRow()][position.getColumn()] = piece;}
     /**
      * Gets a chess piece on the chessboard
      *
