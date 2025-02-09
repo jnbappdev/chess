@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ChessBoard {
     private ChessPiece[][] grid = new ChessPiece[8][8];
     public ChessBoard() {
-        
+//        what should go here exactly?
     }
     /**
      * Adds a chess piece to the chessboard

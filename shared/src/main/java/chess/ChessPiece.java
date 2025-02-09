@@ -91,24 +91,43 @@ public class ChessPiece {
         } else if(this.pieceType == PieceType.PAWN) {
             if((myPosition.getRow() >= 1 && myPosition.getRow() < 8) && (myPosition.getColumn() <= 8 && myPosition.getColumn() >= 1)) {
 //                how do I check if the space is empty or filled with another piece (the same team)
-//                1. is the piece staying on the board
-//                2. is the piece moving to an empty space
-//                3. is the piece going to capture another piece
+//                1. is the piece staying on the board *
+//                2. is the piece moving to an empty space **
+//                3. is the piece going to capture another piece ***
+//                FRONT MOVE
                 ChessPosition frontMove = new ChessPosition(myPosition.getRow() + 1, myPosition.getColumn());
                 ChessPiece frontpiece = board.getPiece(frontMove);
-                if (frontpiece == null){ // will return null if empty
+                if (frontpiece == null) { // will return null if empty **
                     possibleMoves.add(new ChessMove(myPosition, frontMove, null));
 //                    still need to check if it hits the 8th rank for white, or 1st for black if it can promote you put options
-            }
+                    if (frontpiece.getPieceType() == null) {
+                        possibleMoves.add(new ChessMove(myPosition, myPosition, PieceType.QUEEN));
+                        possibleMoves.add(new ChessMove(myPosition, myPosition, PieceType.ROOK));
+                        possibleMoves.add(new ChessMove(myPosition, myPosition, PieceType.KNIGHT));
+                        possibleMoves.add(new ChessMove(myPosition, myPosition, PieceType.BISHOP));
+                    }
+                }
+//                DIAGONAL RIGHT
+                ChessPosition diagonalRightMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()-1);
+                ChessPiece diagonalRightPiece = board.getPiece(diagonalRightMove);
+                if(diagonalRightPiece != null){
+                    possibleMoves.add(new ChessMove(myPosition, diagonalRightMove, null));
+                }
+//                DIAGONAL LEFT
+                ChessPosition diagonalLeftMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+                ChessPiece diagonalLeftPiece = board.getPiece(diagonalLeftMove);
+                if(diagonalLeftPiece != null){
+                    possibleMoves.add(new ChessMove(myPosition, diagonalLeftMove, null));
+                }
+//              ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 if (frontpiece.teamColor != board.getPiece(myPosition).teamColor){
+                    frontpiece = board.getPiece(myPosition);
+//              3. is the piece going to capture another piece ***
 //                    set the old space to equal the new piece
 //                    board[[1][3]] = null;
-
                 }
-                ChessPosition diagonalRightMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()-1);
-                ChessPosition diagonalLeftMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+//              +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             }
-
         }
         return new ArrayList<ChessMove>(
                 // all possible move positions of each chess piece on the board
