@@ -103,58 +103,65 @@ public class ChessPiece {
 
             }
             ChessPosition newKingPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+            
+//KINGKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
         } else if(this.pieceType == PieceType.KING){
-            if((myPosition.getRow() >= 1 && myPosition.getRow() < 8) && (myPosition.getColumn() <= 8 && myPosition.getColumn() >= 1)){
-                ChessPosition frontMove = new ChessPosition(myPosition.getRow() + 1, myPosition.getColumn());
-                ChessPiece frontpiece = board.getPiece(frontMove);
-                if (frontpiece == null) { // will return null if empty **
+            ChessPosition frontMove = new ChessPosition(myPosition.getRow() + 1, myPosition.getColumn());
+            ChessPosition backMove = new ChessPosition(myPosition.getRow() - 1, myPosition.getColumn());
+            ChessPosition rightMove = new ChessPosition(myPosition.getRow(), myPosition.getColumn() + 1);
+            ChessPosition leftMove = new ChessPosition(myPosition.getRow(), myPosition.getColumn() - 1);
+            ChessPosition frontRightMove = new ChessPosition(myPosition.getRow() + 1, myPosition.getColumn() + 1);
+            ChessPosition frontLeftMove = new ChessPosition(myPosition.getRow() + 1, myPosition.getColumn() - 1);
+            ChessPosition backRightMove = new ChessPosition(myPosition.getRow() - 1, myPosition.getColumn() + 1);
+            ChessPosition backLeftMove = new ChessPosition(myPosition.getRow() - 1, myPosition.getColumn() - 1);
+
+//          if any of these moves are in bounds, code continues on
+            if(frontMove.inBounds() || backMove.inBounds() || rightMove.inBounds() || leftMove.inBounds() || frontRightMove.inBounds() || frontLeftMove.inBounds() || backRightMove.inBounds() || backLeftMove.inBounds()) {
+//              KING FRONT
+                ChessPiece frontPiece = board.getPiece(frontMove);
+                if (frontPiece == null || frontPiece.teamColor != board.getPiece(myPosition).teamColor) { //
                     possibleMoves.add(new ChessMove(myPosition, frontMove, null));
 //                    still need to check if it hits the 8th rank for white, or 1st for black if it can promote you put options
                 }
-                if (frontpiece.teamColor != board.getPiece(myPosition).teamColor) {
-                    possibleMoves.add(new ChessMove(myPosition, frontMove, null));
+//              KING BACK
+                ChessPiece backPiece = board.getPiece(backMove);
+                if (backPiece == null || backPiece.teamColor != board.getPiece(myPosition).teamColor) {
+                    possibleMoves.add(new ChessMove(myPosition, backMove, null));
                 }
-
-//                KING RIGHT
-                ChessPosition rightMove = new ChessPosition(myPosition.getRow(), myPosition.getColumn()+1);
+//              KING RIGHT
                 ChessPiece rightPiece = board.getPiece(rightMove);
-                if(rightPiece != null){
+                if (rightPiece == null || rightPiece.teamColor != board.getPiece(myPosition).teamColor) {
                     possibleMoves.add(new ChessMove(myPosition, rightMove, null));
                 }
-
-//                KING LEFT
-                ChessPosition leftMove = new ChessPosition(myPosition.getRow(), myPosition.getColumn()-1);
+//              KING LEFT
                 ChessPiece leftPiece = board.getPiece(leftMove);
-                if(leftPiece != null){
+                if (leftPiece == null || leftPiece.teamColor != board.getPiece(myPosition).teamColor) {
                     possibleMoves.add(new ChessMove(myPosition, leftMove, null));
                 }
-
 //                KING DIAGONAL RIGHT
-                ChessPosition diagonalRightMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()-1);
-                ChessPiece diagonalRightPiece = board.getPiece(diagonalRightMove);
-                if(diagonalRightPiece != null){
-                    possibleMoves.add(new ChessMove(myPosition, diagonalRightMove, null));
+                ChessPiece frontRightPiece = board.getPiece(frontRightMove);
+                if (frontRightPiece == null || frontRightPiece.teamColor != board.getPiece(myPosition).teamColor) {
+                    possibleMoves.add(new ChessMove(myPosition, frontRightMove, null));
                 }
 //                KING DIAGONAL LEFT
-                ChessPosition diagonalLeftMove = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
-                ChessPiece diagonalLeftPiece = board.getPiece(diagonalLeftMove);
-                if(diagonalLeftPiece != null){
-                    possibleMoves.add(new ChessMove(myPosition, diagonalLeftMove, null));
+                ChessPiece frontLeftPiece = board.getPiece(frontLeftMove);
+                if (frontLeftPiece == null || frontLeftPiece.teamColor != board.getPiece(myPosition).teamColor) {
+                    possibleMoves.add(new ChessMove(myPosition, frontLeftMove, null));
                 }
 //                KING DIAGONAL BOTTOM RIGHT
-                ChessPosition diagonalBottomRightMove = new ChessPosition(myPosition.getRow()-1, myPosition.getColumn()+1);
-                ChessPiece diagonalBottomRightPiece = board.getPiece(diagonalRightMove);
-                if(diagonalBottomRightPiece != null){
-                    possibleMoves.add(new ChessMove(myPosition, diagonalBottomRightMove, null));
+                ChessPiece backRightPiece = board.getPiece(backRightMove);
+                if (backRightPiece == null || backRightPiece.teamColor != board.getPiece(myPosition).teamColor) {
+                    possibleMoves.add(new ChessMove(myPosition, backRightMove, null));
                 }
 //                KING DIAGONAL BOTTOM LEFT
-                ChessPosition diagonalBottomLeftMove = new ChessPosition(myPosition.getRow()-1, myPosition.getColumn()-1);
-                ChessPiece diagonalBottomLeftPiece = board.getPiece(diagonalBottomLeftMove);
-                if(diagonalBottomLeftPiece != null){
-                    possibleMoves.add(new ChessMove(myPosition, diagonalBottomLeftMove, null));
+                ChessPiece backLeftPiece = board.getPiece(backLeftMove);
+                if (backLeftPiece == null || backLeftPiece.teamColor != board.getPiece(myPosition).teamColor) {
+                    possibleMoves.add(new ChessMove(myPosition, backLeftMove, null));
                 }
             }
-            ChessPosition newKingPosition = new ChessPosition(myPosition.getRow()+1, myPosition.getColumn()+1);
+//KINGKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+
+//PAWNPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
         } else if(this.pieceType == PieceType.PAWN) {
             if((myPosition.getRow() >= 1 && myPosition.getRow() < 8) && (myPosition.getColumn() <= 8 && myPosition.getColumn() >= 1)) {
 //                how do I check if the space is empty or filled with another piece (the same team)
@@ -190,11 +197,14 @@ public class ChessPiece {
 //                    set the old space to equal the new piece
 //                    board[[1][3]] = null;
                 }
+//PAWNPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
 //              +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                QUESTIONS TO ASK NEXT TIME
 //                - How do you check to make sure the direction the piece is going is not outside of the board
 //                but also not just checking for null because that could just be an empty space
 //                - Difference between "null" and "out of bounds"?
+//                - Why can't I use frontpiece.getRow() etc.? Just like I use myPosition.getRow()
+//                - in ChessBoard Class, what should I have in the class? I can't think of anyhting
 
 
             }

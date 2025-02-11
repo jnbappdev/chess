@@ -26,6 +26,10 @@ public class ChessPosition {
         return this.row;
     }
 
+    public boolean inBounds() {
+        return row >= 1 && col >= 1 && row <= 8 && col <= 8;
+    }
+
     /**
      * @return which column this position is in
      * 1 codes for the left row
